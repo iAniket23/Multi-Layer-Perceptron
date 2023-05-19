@@ -1,11 +1,18 @@
 # importing the library
 import numpy as np
-np.random.seed(0)
+import matplotlib.pyplot as plt
+import nnfs
+from nnfs.datasets import spiral_data  # See for code: https://gist.github.com/Sentdex/454cb20ec5acf0e76ee8ab8448e6266c
+
+nnfs.init()
+
+# np.random.seed(0)
 # This is our input -> shape(3,4)
 # 3 batches here with each batch having 4 datapoints
-X = [[1,2,3,2.5],
-      [2,5,-1,2],
-      [-1.5,2.7,3.3,-0.8]]
+# X = [[1,2,3,2.5],
+#       [2,5,-1,2],
+#       [-1.5,2.7,3.3,-0.8]]
+
 
 # Layer class for initialization of a layer with weights and biases
 class Layer:
@@ -18,17 +25,31 @@ class Layer:
     def forward(self, inputs):
         self.output = np.dot(inputs, self.weights) + self.biases
 
-number_inputs_layer1 = 4
-number_neurons_layer1 = 5
-layer1 = Layer(number_inputs_layer1, number_neurons_layer1)
+# RELU
+class ActivationRELU:
+    def forward(self, inputs):
+        self.output = np.maximum(0, inputs)
 
-# this input should be equal to the output of layer 1
-number_inputs_layer2 = 5
-number_neurons_layer2 = 2
-layer2 = Layer(number_inputs_layer2, number_neurons_layer2)
+# Softmax
+class ActivationSoftmax:
+    def forward(self, inputs):
+        # Avoiding overflow by subtracting max
+        exp_values = np.exp(inputs - np.max(inputs, axis = 1, keepdims=True))
+        probabilities = exp_values/np.sum(exp_values, axis=1, keepdims=True)
+        self.output = probabilities
+
+X, y = spiral_data(samples=100, classes=3)
+
+layer1 = Layer(2, 3)
+activation1 = ActivationRELU()
+
+layer2 = Layer(3, 3)
+activation2 = ActivationSoftmax()
 
 layer1.forward(X)
-print("Layer 1 \n",layer1.output)
+activation1.forward(layer1.output)
 
-layer2.forward(layer1.output)
-print("Layer 2 \n",layer2.output)
+layer2.forward(activation1.output)
+activation2.forward(layer2.output)
+
+print(activation2.output[:5])
