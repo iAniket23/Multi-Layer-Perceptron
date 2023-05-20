@@ -204,3 +204,5 @@ for epoch in range(10001):
     #print gradients
     optimizer.update_params(layer1)
     optimizer.update_params(layer2)
+    
+
