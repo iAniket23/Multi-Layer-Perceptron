@@ -58,9 +58,11 @@ class ActivationSoftmax:
     # takes the unnormalized data and then convert it into normalized data
     def forward(self, inputs):
         self.inputs = inputs
+        
         # Unnormalized 
         # Avoiding overflow by subtracting max
         exp_values = np.exp(inputs - np.max(inputs, axis = 1, keepdims=True))
+        
         # normalizing it
         probabilities = exp_values/np.sum(exp_values, axis=1, keepdims=True)
         self.output = probabilities
@@ -153,6 +155,7 @@ class ActivationSoftmaxLossCategoricalCrossEntropy():
         # Normalize gradient
         self.dinputs = self.dinputs / samples
 
+# Change the Optimizer here
 class OptimizerSGD:
     # Initialize optimizer - set settings,
     # learning rate of 1. is default for this optimizer
