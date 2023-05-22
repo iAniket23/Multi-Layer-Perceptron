@@ -1,11 +1,6 @@
 # importing the library
 import numpy as np
 import matplotlib.pyplot as plt
-import nnfs
-from nnfs.datasets import spiral_data
-
-# initiliaze the seed
-nnfs.init()
 
 # np.random.seed(0)
 # This is our input -> shape(3,4)
