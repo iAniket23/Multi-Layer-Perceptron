@@ -1,1 +1,2 @@
-# neural-network-scratch
+# neural-network-scratch   
+In Progress
