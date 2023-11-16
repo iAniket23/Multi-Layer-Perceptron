@@ -12,6 +12,7 @@ input_set =  [[1, 2, 3, 2.5],
 hidden_layer_one = layer.Layer_Dense(4, 5)
 hidden_layer_two = layer.Layer_Dense(5, 2)
 
+# Forward pass
 hidden_layer_one.forward(input_set)
 hidden_layer_two.forward(hidden_layer_one.output)
 
