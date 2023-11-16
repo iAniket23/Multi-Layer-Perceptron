@@ -1,31 +1,18 @@
 # Multi Layer Perceptron
 
-# We will import the necessary libraries
-import numpy as np
-import matplotlib.pyplot as plt
-
-# currently we will have 3 neurons 
+# We will import the necessary libraries and files
+import layer
 
 # getting the batch of inputs, batch size is 3
-inputs = [[1, 2, 3, 2.5],
-          [2, 5, -1, 2],
-          [-1.5, 2.7, 3.3, -0.8]]
+input_set =  [[1, 2, 3, 2.5],
+             [2, 5, -1, 2],
+             [-1.5, 2.7, 3.3, -0.8]]
 
-# getting the weights, shape is (3,4)
-weights = [[0.2, 0.8, -0.5, 1],
-           [0.5, -0.91, 0.26, -0.5],
-           [-0.26, -0.27, 0.17, 0.87]]
+# initializing the layer 
+hidden_layer_one = layer.Layer_Dense(4, 5)
+hidden_layer_two = layer.Layer_Dense(5, 2)
 
-# getting the biases
-biases = [2, 3, 0.5]
+hidden_layer_one.forward(input_set)
+hidden_layer_two.forward(hidden_layer_one.output)
 
-# Now we will calculate the output of the layer
-# There are two ways to do this
-# layer_outputs = np.dot(weights, np.transpose(inputs)).T + biases
-# This requires us to transpose two times to accomodate for the addition of biases
-
-# The other way is to transpose the weights and then multiply it with the inputs
-# This is the preferred way
-layer_outputs = np.dot(inputs, np.transpose(weights)) + biases
-
-print(layer_outputs)
+print(hidden_layer_two.output)
