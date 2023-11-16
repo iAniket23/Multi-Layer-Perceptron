@@ -20,8 +20,12 @@ weights = [[0.2, 0.8, -0.5, 1],
 biases = [2, 3, 0.5]
 
 # Now we will calculate the output of the layer
-# np.dot() is used to get the dot product of two matrices
-# we would have to transpose the inputs matrix in order to get the dot product
-layer_outputs = np.dot(weights, np.transpose(inputs)).T + biases
+# There are two ways to do this
+# layer_outputs = np.dot(weights, np.transpose(inputs)).T + biases
+# This requires us to transpose two times to accomodate for the addition of biases
+
+# The other way is to transpose the weights and then multiply it with the inputs
+# This is the preferred way
+layer_outputs = np.dot(inputs, np.transpose(weights)) + biases
 
 print(layer_outputs)
