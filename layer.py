@@ -2,7 +2,7 @@
 import numpy as np
 
 # for weight initialization
-np.random.seed(0)
+# np.random.seed(0)
 
 # Layers for our neural network
 # Each layer is initialized with weights and biases given the number of inputs and neurons
