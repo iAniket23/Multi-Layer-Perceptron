@@ -14,25 +14,27 @@ nnfs.init()
 # each input is a 2 values x coordinate and y coordinate
 input_set, y = spiral_data(100, 3) 
 
-# getting the batch of inputs, batch size is 3
-# input_set =  [[1, 2, 3, 2.5],
-#              [2, 5, -1, 2],
-#              [-1.5, 2.7, 3.3, -0.8]]
 
+# INITIALIZE THE LAYERS AND ACTIVATION FUNCTIONS
 # initializing the layer -> Input is 2 because we have 2 features in our input_set
-hidden_layer_one = layer.Layer_Dense(2, 5)
-# hidden_layer_two = layer.Layer_Dense(5, 2)
-
+# Layer 1 -> 2 inputs, 3 neurons
+hidden_layer_one = layer.Layer_Dense(2, 3)
 # initializing the activation function
 activation_one = activation.Activation_ReLU()
+# Layer 2 -> 3 inputs, 3 neurons
+hidden_layer_two = layer.Layer_Dense(3, 3)
+# initializing the activation function
+activation_two = activation.Activation_Softmax()
 
+# FORWARD PASS
 # Forward pass -> Basically it does Wx + b
 hidden_layer_one.forward(input_set)
-
 # activation function
 activation_one.forward(hidden_layer_one.output)
 
+# Layer 2
+hidden_layer_two.forward(activation_one.output)
+activation_two.forward(hidden_layer_two.output)
 
-# hidden_layer_two.forward(hidden_layer_one.output)
 
-print(activation_one.output)
+print(activation_two.output)
