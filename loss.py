@@ -9,5 +9,8 @@
 # try_array = np.array([1, 2, 3, 4, 5])
 # print(len(try_array.shape))
 class Loss:
-    def __init__(self):
+    def __init__(self, output, target):
+        self.output = output
+        self.target = target
+        self.loss = self.cross_entropy_loss()
         
